@@ -49,7 +49,6 @@ class NewTryViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(NewTryViewController.save))
     }
     
-    // todo4
     func save() {
         if tryField.text!.isEmpty {
             let alertView = UIAlertController(title: "エラー", message: "Tryが記述されていません",preferredStyle: UIAlertControllerStyle.Alert)
@@ -63,11 +62,11 @@ class NewTryViewController: UIViewController, UITextFieldDelegate {
             todo.frequency = TodoFrequency(rawValue: frequencySegment.selectedSegmentIndex)!
             
             if "\(todo.frequency)" == "Daily" {
-                self.todoCollection.addTodoCollection(todo, type: "dailyTryList")
+                self.todoCollection.addTodoCollection(&self.todoCollection.dailyTryList ,todo: todo, type: "dailyTryList")
             } else if "\(todo.frequency)" == "Weekly" {
-                self.todoCollection.addTodoCollection(todo, type: "weeklyTryList")
+                self.todoCollection.addTodoCollection(&self.todoCollection.weeklyTryList, todo: todo, type: "weeklyTryList")
             } else {
-                self.todoCollection.addTodoCollection(todo, type: "otherTryList")
+                self.todoCollection.addTodoCollection(&self.todoCollection.otherTryList,todo: todo, type: "otherTryList")
             }
             // self.todoCollection.addTodoCollection(todo, type: "tryList")
             self.dismissViewControllerAnimated(true, completion: nil)

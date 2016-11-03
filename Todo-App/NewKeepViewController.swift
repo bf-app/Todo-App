@@ -59,7 +59,7 @@ class NewKeepViewController: UIViewController,UITextFieldDelegate {
             todo.title = keepField.text!
             todo.descript = descriptionView.text
             todo.priority = TodoPriority(rawValue: prioritySegment.selectedSegmentIndex)!
-            self.todoCollection.addTodoCollection(todo, type: "keepList")
+            self.todoCollection.addTodoCollection(&self.todoCollection.keepList, todo: todo, type: "keepList")
             self.dismissViewControllerAnimated(true, completion: nil)
             
         }

@@ -19,7 +19,7 @@ class ProblemListTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        todoCollection.fetchTodos("problemList")
+        todoCollection.fetchTodos(&self.todoCollection.problemList, type: "problemList")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -78,7 +78,7 @@ class ProblemListTableViewController: UITableViewController {
         switch editingStyle {
         case .Delete:
             self.todoCollection.problemList.removeAtIndex(indexPath.row)
-            self.todoCollection.save("problemList")
+            self.todoCollection.save(&self.todoCollection.problemList, type: "problemList")
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Middle)
         case .Insert:
             return
@@ -91,7 +91,7 @@ class ProblemListTableViewController: UITableViewController {
         let todo = self.todoCollection.problemList[sourceIndexPath.row]
         self.todoCollection.problemList.removeAtIndex(sourceIndexPath.row)
         self.todoCollection.problemList.insert(todo, atIndex: destinationIndexPath.row)
-        self.todoCollection.save("problemList")
+        self.todoCollection.save(&self.todoCollection.problemList, type: "problemList")
     }
 
     /*

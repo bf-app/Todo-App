@@ -58,7 +58,7 @@ class NewProblemViewController: UIViewController, UITextFieldDelegate {
             todo.title = problemField.text!
             todo.descript = descriptionView.text
             todo.priority = TodoPriority(rawValue: prioritySegment.selectedSegmentIndex)!
-            self.todoCollection.addTodoCollection(todo, type: "problemList")
+            self.todoCollection.addTodoCollection(&self.todoCollection.problemList, todo: todo, type: "problemList")
             self.dismissViewControllerAnimated(true, completion: nil)
             
         }

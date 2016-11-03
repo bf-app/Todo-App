@@ -347,8 +347,8 @@
                                     <constraint firstAttribute="height" constant="28" id="GYr-FR-qdN"/>
                                 </constraints>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="Low"/>
+                                    <segment title="Middle"/>
                                     <segment title="High"/>
                                 </segments>
                                 <color key="tintColor" red="1" green="0.59999999999999998" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>

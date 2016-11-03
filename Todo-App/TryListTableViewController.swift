@@ -24,9 +24,10 @@ class TryListTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        todoCollection.fetchTodos("dailyTryList")
-        todoCollection.fetchTodos("weeklyTryList")
-        todoCollection.fetchTodos("otherTryList")
+        
+        todoCollection.fetchTodos(&self.todoCollection.dailyTryList, type: "dailyTryList")
+        todoCollection.fetchTodos(&self.todoCollection.weeklyTryList, type: "weeklyTryList")
+        todoCollection.fetchTodos(&self.todoCollection.otherTryList, type: "otherTryList")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -80,6 +81,7 @@ class TryListTableViewController: UITableViewController {
     }
     
     //　trylistを表示
+    // TODO: リファクタ
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "tryIdentifier")
         cell.textLabel!.font = UIFont(name: "HirakakuProN-W3", size: 15)
@@ -114,13 +116,13 @@ class TryListTableViewController: UITableViewController {
         case .Delete:
             if "\(indexPath.section)" == String(0) {
                 self.todoCollection.dailyTryList.removeAtIndex(indexPath.row)
-                self.todoCollection.save("dailyTryList")
+                self.todoCollection.save(&self.todoCollection.dailyTryList ,type: "dailyTryList")
             } else if "\(indexPath.section)" == String(1) {
                 self.todoCollection.weeklyTryList.removeAtIndex(indexPath.row)
-                self.todoCollection.save("weeklyTryList")
+                self.todoCollection.save(&self.todoCollection.weeklyTryList ,type: "weeklyTryList")
             } else if "\(indexPath.section)" == String(2) {
                 self.todoCollection.otherTryList.removeAtIndex(indexPath.row)
-                self.todoCollection.save("otherTryList")
+                self.todoCollection.save(&self.todoCollection.otherTryList ,type: "otherTryList")
             } else {
                 return
             }
@@ -135,24 +137,25 @@ class TryListTableViewController: UITableViewController {
     
     // 編集
     // 頻度の変更ができない状態
+    // TODO: リファクタ
     override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
         if "\(destinationIndexPath.section)" == String(0) {
             let todo = self.todoCollection.dailyTryList[sourceIndexPath.row]
             self.todoCollection.dailyTryList.removeAtIndex(sourceIndexPath.row)
             self.todoCollection.dailyTryList.insert(todo, atIndex: destinationIndexPath.row)
-            self.todoCollection.save("dailyTryList")
+            self.todoCollection.save(&self.todoCollection.dailyTryList ,type: "dailyTryList")
             
         } else if "\(destinationIndexPath.section)" == String(1) {
             let todo = self.todoCollection.weeklyTryList[sourceIndexPath.row]
             self.todoCollection.weeklyTryList.removeAtIndex(sourceIndexPath.row)
             self.todoCollection.weeklyTryList.insert(todo, atIndex: destinationIndexPath.row)
-            self.todoCollection.save("weeklyTryList")
+            self.todoCollection.save(&self.todoCollection.weeklyTryList ,type: "weeklyTryList")
             
         } else if "\(destinationIndexPath.section)" == String(2) {
             let todo = self.todoCollection.otherTryList[sourceIndexPath.row]
             self.todoCollection.otherTryList.removeAtIndex(sourceIndexPath.row)
             self.todoCollection.otherTryList.insert(todo, atIndex: destinationIndexPath.row)
-            self.todoCollection.save("otherTryList")
+            self.todoCollection.save(&self.todoCollection.otherTryList ,type: "otherTryList")
             
         } else {
             return

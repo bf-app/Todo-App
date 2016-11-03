@@ -19,7 +19,7 @@ class KeepListTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        todoCollection.fetchTodos("keepList")
+        todoCollection.fetchTodos(&self.todoCollection.keepList, type: "keepList")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -78,7 +78,7 @@ class KeepListTableViewController: UITableViewController {
         switch editingStyle {
         case .Delete:
             self.todoCollection.keepList.removeAtIndex(indexPath.row)
-            self.todoCollection.save("keepList")
+            self.todoCollection.save(&self.todoCollection.keepList, type: "keepList")
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Middle)
         case .Insert:
             return
@@ -91,7 +91,7 @@ class KeepListTableViewController: UITableViewController {
         let todo = self.todoCollection.keepList[sourceIndexPath.row]
         self.todoCollection.keepList.removeAtIndex(sourceIndexPath.row)
         self.todoCollection.keepList.insert(todo, atIndex: destinationIndexPath.row)
-        self.todoCollection.save("keepList")
+        self.todoCollection.save(&self.todoCollection.keepList, type: "keepList")
     }
  
 
